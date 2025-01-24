@@ -8,6 +8,11 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
   },
+  preview: {
+    port: process.env.PORT || 10000, // Use Render's environment variable for port
+    strictPort: true, // Fail if port is unavailable
+    host: true, // Expose to the network
+  },
   server: {
     port: 5173,
   },
