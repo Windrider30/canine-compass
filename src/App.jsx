@@ -7,6 +7,7 @@ import './App.css';
 export default function App() {
   const [breeds, setBreeds] = useState([]);
   const [popularBreeds, setPopularBreeds] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     // Fetch all breeds
@@ -21,6 +22,13 @@ export default function App() {
         setPopularBreeds(popular);
       });
   }, []);
+
+  const handleSearch = (query) => {
+    const results = breeds.filter((breed) =>
+      breed.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(results);
+  };
 
   return (
     <div className="app">
@@ -38,8 +46,12 @@ export default function App() {
         />
       </header>
       <p className="welcome-text">Welcome to the dog breed explorer</p>
-      <SearchBar breeds={breeds} />
-      <PopularBreeds breeds={popularBreeds} />
+      <SearchBar breeds={breeds} onSearch={handleSearch} />
+      {searchResults.length > 0 ? (
+        <PopularBreeds breeds={searchResults} />
+      ) : (
+        <PopularBreeds breeds={popularBreeds} />
+      )}
     </div>
   );
 }

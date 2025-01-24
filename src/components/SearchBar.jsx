@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import './SearchBar.css';
 
-export default function SearchBar({ breeds }) {
+export default function SearchBar({ breeds, onSearch }) {
   const [query, setQuery] = useState('');
-  const router = useRouter();
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      router.push(`/breeds/${query}`);
+      onSearch(query);
     }
   };
 
