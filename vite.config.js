@@ -12,6 +12,10 @@ export default defineConfig({
     port: process.env.PORT || 10000, // Use Render's environment variable for port
     strictPort: true, // Fail if port is unavailable
     host: true, // Expose to the network
+    allowedHosts: [
+      'canine-compass.onrender.com', // Allow your Render domain
+      'localhost', // Allow local development
+    ],
   },
   server: {
     port: 5173,
