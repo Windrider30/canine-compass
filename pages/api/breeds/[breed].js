@@ -5,12 +5,9 @@ export default async function handler(req, res) {
   const { db } = await connectToDatabase();
 
   // Check cache first
-  const cachedData = db.exec('SELECT * FROM breedCache WHERE breed = ?', [breed]);
-  if (cachedData.length > 0 && cachedData[0].values.length > 0) {
-    const [data, timestamp] = cachedData[0].values[0];
-    if (Date.now() - new Date(timestamp).getTime() < 24 * 60 * 60 * 1000) {
-      return res.status(200).json(JSON.parse(data));
-    }
+  const cachedData = db.get(breed);
+  if (cachedData) {
+    return res.status(200).json(cachedData);
   }
 
   try {
@@ -25,13 +22,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     // Cache the data
-    db.exec(`
-      INSERT INTO breedCache (breed, data, timestamp)
-      VALUES (?, ?, ?)
-      ON CONFLICT(breed) DO UPDATE SET
-        data = excluded.data,
-        timestamp = excluded.timestamp
-    `, [breed, JSON.stringify(data), new Date().toISOString()]);
+    db.set(breed, data);
 
     res.status(200).json(data);
   } catch (error) {

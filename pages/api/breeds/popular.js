@@ -1,5 +1,3 @@
-import { connectToDatabase } from '../../lib/database';
-
 export default async function handler(req, res) {
   try {
     // Fetch popular breeds from the API
