@@ -4,8 +4,12 @@ const nextConfig = {
   images: {
     domains: ['cdn2.thedogapi.com', 'pixabay.com'],
   },
-  experimental: {
-    // Remove serverActions as they're enabled by default
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.wasm$/,
+      type: 'asset/resource',
+    });
+    return config;
   }
 }
 
