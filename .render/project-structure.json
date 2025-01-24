@@ -1,0 +1,11 @@
+{
+  "root": ".",
+  "build": {
+    "command": "npm install && npm run build",
+    "directory": "."
+  },
+  "start": {
+    "command": "npm start",
+    "directory": "."
+  }
+}
