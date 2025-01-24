@@ -10,17 +10,14 @@ import { dogApi } from '../../utils/api'
         if (req.method === 'GET') {
           console.log('Fetching breeds...')
           
-          // First check if we have breeds in database
           let breeds = await Breed.find({})
           console.log(`Found ${breeds.length} breeds in database`)
           
-          // If no breeds in database, fetch from API
           if (breeds.length === 0) {
             console.log('Fetching breeds from external API...')
             const { data } = await dogApi.get('/breeds')
             console.log(`Received ${data.length} breeds from API`)
             
-            // Transform and save breeds
             breeds = data.map(breed => ({
               name: breed.name,
               description: breed.description || '',
@@ -35,7 +32,6 @@ import { dogApi } from '../../utils/api'
               wikipedia_url: breed.wikipedia_url
             }))
             
-            // Save to database
             await Breed.insertMany(breeds)
             console.log('Saved breeds to database')
           }

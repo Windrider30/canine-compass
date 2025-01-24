@@ -9,7 +9,8 @@ import { defineConfig } from 'vite'
           '/api': {
             target: 'http://localhost:5173',
             changeOrigin: true,
-            secure: false
+            secure: false,
+            rewrite: (path) => path.replace(/^\/api/, '')
           }
         }
       }

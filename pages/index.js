@@ -12,20 +12,25 @@ import { useEffect, useState } from 'react'
       useEffect(() => {
         const fetchBreeds = async () => {
           try {
-            const response = await fetch('http://localhost:5173/api/breeds')
+            const response = await fetch('/api/breeds', {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`)
             }
+
             const data = await response.json()
             setBreeds(data)
-            // Set initial popular breeds (first 6 with images)
             const popular = data
               .filter(breed => breed.image_url)
               .slice(0, 6)
             setFilteredBreeds(popular)
           } catch (error) {
             console.error('Error fetching breeds:', error)
-            setError(error.message)
+            setError(`Failed to load breeds: ${error.message}`)
           } finally {
             setIsLoading(false)
           }
@@ -36,7 +41,6 @@ import { useEffect, useState } from 'react'
 
       const handleSearch = (query) => {
         if (!query) {
-          // Reset to popular breeds when search is empty
           const popular = breeds
             .filter(breed => breed.image_url)
             .slice(0, 6)
