@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: canine-compass
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: DOG_API_KEY
+        value: your_api_key_here
+      - key: NEXT_PUBLIC_PIXABAY_KEY
+        value: your_pixabay_key_here
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /api/test-db

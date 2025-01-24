@@ -4,5 +4,6 @@
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
   "/breeds/[breed]": "pages/breeds/[breed].js",
+  "/api/breeds/popular": "pages/api/breeds/popular.js",
   "/api/breeds/[breed]": "pages/api/breeds/[breed].js"
 }
