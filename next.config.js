@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
-    const nextConfig = {
-      reactStrictMode: true,
-      images: {
-        domains: ['cdn2.thedogapi.com', 'pixabay.com'],
-      },
-      experimental: {
-        serverActions: true,
-      },
-    }
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['cdn2.thedogapi.com', 'pixabay.com'],
+  },
+  experimental: {
+    // Remove serverActions as they're enabled by default
+  }
+}
 
-    module.exports = nextConfig
+module.exports = nextConfig
