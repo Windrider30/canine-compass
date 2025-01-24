@@ -1,21 +1,14 @@
-import mongoose from 'mongoose'
+// In-memory database implementation
+const breeds = new Map();
 
-    const connectDB = async () => {
-      try {
-        if (mongoose.connection.readyState === 1) {
-          console.log('Already connected to MongoDB')
-          return
-        }
-
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/caninecompass', {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-        })
-        console.log('MongoDB connected successfully')
-      } catch (error) {
-        console.error('MongoDB connection error:', error)
-        throw error
-      }
+export const connectDB = async () => {
+  console.log('Using in-memory database');
+  return {
+    get: (key) => breeds.get(key),
+    set: (key, value) => breeds.set(key, value),
+    getAll: () => Array.from(breeds.values()),
+    insert: (data) => {
+      data.forEach(breed => breeds.set(breed.name, breed));
     }
-
-    export default connectDB
+  };
+};
