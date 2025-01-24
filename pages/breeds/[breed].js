@@ -1,29 +1,32 @@
-import { useRouter } from 'next/router';
-    import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
+    import { useEffect, useState } from 'react'
+    import BreedCard from '../../components/BreedCard'
 
     export default function BreedPage() {
-      const router = useRouter();
-      const { breed } = router.query;
-      const [breedData, setBreedData] = useState(null);
+      const router = useRouter()
+      const { breed } = router.query
+      const [breedData, setBreedData] = useState(null)
 
       useEffect(() => {
         if (breed) {
-          fetch(`/api/breeds/${breed}`)
-            .then(res => res.json())
-            .then(data => setBreedData(data[0]))
-            .catch(console.error);
+          const fetchBreed = async () => {
+            const response = await fetch(`/api/breeds/${breed}`)
+            const data = await response.json()
+            setBreedData(data)
+          }
+          fetchBreed()
         }
-      }, [breed]);
+      }, [breed])
 
-      if (!breedData) return <div>Loading...</div>;
+      if (!breedData) return <p>Loading...</p>
 
       return (
-        <div>
-          <h1>{breedData.name}</h1>
-          <p>{breedData.temperament}</p>
-          <p>Life Span: {breedData.life_span}</p>
-          <p>Weight: {breedData.weight.metric} kg</p>
-          <p>Height: {breedData.height.metric} cm</p>
+        <div className="container">
+          <BreedCard breed={breedData} />
+          <div className="additional-info">
+            <h2>More About {breedData.name}</h2>
+            <p>{breedData.description}</p>
+          </div>
         </div>
-      );
+      )
     }

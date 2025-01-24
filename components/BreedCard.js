@@ -1,23 +1,30 @@
-import Image from 'next/image';
-    import Link from 'next/link';
-    import styles from '../styles/Home.module.css';
+import Link from 'next/link'
+    import styles from '../styles/BreedCard.module.css'
 
     export default function BreedCard({ breed }) {
       return (
-        <div className={styles.breedCard}>
-          <Link href={`/breeds/${breed.id}`}>
-            <div className={styles.imageContainer}>
-              <Image
-                src={breed.image?.url || '/default-dog.jpg'}
+        <Link href={`/breeds/${breed.name}`} className={styles.cardLink}>
+          <div className={styles.breedCard}>
+            {breed.image_url ? (
+              <img 
+                src={breed.image_url} 
                 alt={breed.name}
-                width={300}
-                height={200}
                 className={styles.breedImage}
               />
+            ) : (
+              <div className={styles.imagePlaceholder}>
+                <span>No Image Available</span>
+              </div>
+            )}
+            <div className={styles.breedInfo}>
+              <h2>{breed.name}</h2>
+              <p className={styles.breedGroup}>{breed.breed_group || 'Unknown Group'}</p>
+              <div className={styles.breedDetails}>
+                <p><strong>Temperament:</strong> {breed.temperament || 'Not specified'}</p>
+                <p><strong>Life Span:</strong> {breed.life_span || 'Unknown'}</p>
+              </div>
             </div>
-            <h3 className={styles.breedName}>{breed.name}</h3>
-            <p className={styles.breedTemperament}>{breed.temperament}</p>
-          </Link>
-        </div>
-      );
+          </div>
+        </Link>
+      )
     }

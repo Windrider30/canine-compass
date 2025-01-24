@@ -1,0 +1,54 @@
+.cardLink {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .breedCard {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .breedCard:hover {
+      transform: translateY(-5px);
+    }
+
+    .breedImage {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .imagePlaceholder {
+      width: 100%;
+      height: 200px;
+      background-color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+
+    .breedInfo {
+      padding: 16px;
+    }
+
+    .breedInfo h2 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+    }
+
+    .breedGroup {
+      color: #666;
+      margin: 0 0 12px;
+    }
+
+    .breedDetails {
+      font-size: 0.9rem;
+    }
+
+    .breedDetails p {
+      margin: 4px 0;
+    }

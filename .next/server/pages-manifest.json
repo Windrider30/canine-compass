@@ -2,8 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/breeds/[breed]": "pages/breeds/[breed].js",
-  "/api/breeds/popular": "pages/api/breeds/popular.js",
-  "/api/breeds/[breed]": "pages/api/breeds/[breed].js"
+  "/": "pages/index.js"
 }

@@ -1,14 +1,7 @@
-import '../styles/globals.css';
-    import Head from 'next/head';
+import '../styles/globals.css'
 
-    export default function App({ Component, pageProps }) {
-      return (
-        <>
-          <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta name="description" content="Canine Compass - Your guide to finding the perfect dog breed" />
-          </Head>
-          <Component {...pageProps} />
-        </>
-      );
+    function MyApp({ Component, pageProps }) {
+      return <Component {...pageProps} />
     }
+
+    export default MyApp
