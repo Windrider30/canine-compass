@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BreedCard from './components/BreedCard';
 import SearchBar from './components/SearchBar';
 import PopularBreeds from './components/PopularBreeds';
+import { fetchBreeds } from './api/breeds';
 import './App.css';
 
 export default function App() {
@@ -11,13 +12,9 @@ export default function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchBreeds = async () => {
+    const loadBreeds = async () => {
       try {
-        const response = await fetch('/api/breeds');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await fetchBreeds();
         setBreeds(data);
         const popular = data
           .filter((breed) => breed.image_url)
@@ -29,7 +26,7 @@ export default function App() {
       }
     };
 
-    fetchBreeds();
+    loadBreeds();
   }, []);
 
   const handleSearch = (query) => {

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Labrador Retriever",
+    "description": "Friendly and outgoing.",
+    "temperament": "Friendly, Active, Outgoing",
+    "life_span": "10-12 years",
+    "image_url": "https://example.com/labrador.jpg"
+  },
+  {
+    "name": "German Shepherd",
+    "description": "Loyal and confident.",
+    "temperament": "Confident, Courageous, Smart",
+    "life_span": "9-13 years",
+    "image_url": "https://example.com/german-shepherd.jpg"
+  }
+]
