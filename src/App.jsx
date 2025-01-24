@@ -8,19 +8,28 @@ export default function App() {
   const [breeds, setBreeds] = useState([]);
   const [popularBreeds, setPopularBreeds] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch all breeds
-    fetch('/api/breeds')
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchBreeds = async () => {
+      try {
+        const response = await fetch('/api/breeds');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
         setBreeds(data);
-        // Set popular breeds (first 6 with images)
         const popular = data
           .filter((breed) => breed.image_url)
           .slice(0, 6);
         setPopularBreeds(popular);
-      });
+      } catch (error) {
+        console.error('Error fetching breeds:', error);
+        setError('Failed to load breeds. Please try again later.');
+      }
+    };
+
+    fetchBreeds();
   }, []);
 
   const handleSearch = (query) => {
@@ -47,10 +56,10 @@ export default function App() {
       </header>
       <p className="welcome-text">Welcome to the dog breed explorer</p>
       <SearchBar breeds={breeds} onSearch={handleSearch} />
-      {searchResults.length > 0 ? (
-        <PopularBreeds breeds={searchResults} />
+      {error ? (
+        <div className="error-message">{error}</div>
       ) : (
-        <PopularBreeds breeds={popularBreeds} />
+        <PopularBreeds breeds={searchResults.length > 0 ? searchResults : popularBreeds} />
       )}
     </div>
   );
